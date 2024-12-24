@@ -15,25 +15,31 @@
  */
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
-        List<List<Integer>> ans=new ArrayList<>();
-        Queue<TreeNode> q=new LinkedList<>();//using queue as it is bfs traversal
-        if(root==null)return ans;
-        q.offer(root);
-        while(!q.isEmpty()){
-            int size=q.size();//size for running loop to add the child
-            List<Integer> curr=new ArrayList<>();//for storing current level node
-            for(int i=0;i<size;i++){
-                TreeNode node=q.poll();//taking out the node from the queue
-                curr.add(node.val);
-                if(node.left!=null){//taking the left child in the queue
-                    q.offer(node.left);
-                }
-                 if(node.right!=null){//taking the right child in the queue
-                    q.offer(node.right);
-                }
-            }
-            ans.add(curr);
+        
+        //this code is level order traversal and bfs way of traversing tree we use queue for iterative way
+        List<List<Integer>> list=new ArrayList<>();
+        Queue<TreeNode> queue =new LinkedList<>();
+        if(root==null){
+            return list;
         }
-        return ans;
+        queue.offer(root);
+        while(!queue.isEmpty()){
+            int size=queue.size();
+            List<Integer> curr= new ArrayList<>();
+            while(size>0){
+                TreeNode node=queue.poll();
+                curr.add(node.val);
+                if(node.left!=null){
+                    queue.offer(node.left);
+                }
+                if(node.right!=null){
+                     queue.offer(node.right);
+                }
+                size--;
+            }
+            list.add(curr);
+            
+        }
+     return list;
     }
 }
