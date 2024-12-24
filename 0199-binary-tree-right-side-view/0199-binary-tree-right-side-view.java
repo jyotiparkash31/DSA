@@ -15,40 +15,22 @@
  */
 class Solution {
     public List<Integer> rightSideView(TreeNode root) {
-    //      List<Integer>ans=new ArrayList<>();
-    //     Queue<TreeNode> q=new LinkedList<>();//using queue as it is bfs traversal
-    //     if(root==null)return ans;
-    //     q.offer(root);
-    //     while(!q.isEmpty()){
-    //         int size=q.size();//size for running loop to add the child   
-    //         for(int i=0;i<size;i++){
-    //             TreeNode node=q.poll();//taking out the node from the queue
-    //             if(i==size-1){
-    //                 ans.add(node.val);
-    //             }
-    //             if(node.left!=null){//taking the left child in the queue
-    //                 q.offer(node.left);
-    //             }
-    //              if(node.right!=null){//taking the right child in the queue
-    //                 q.offer(node.right);
-    //             }
-    //         }
-    //    }
-    //     return ans;
-        
-        List<Integer> list=new ArrayList<>();
-        help(root,list,0);
+        List<Integer> list =new ArrayList<>();
+        if(root==null)return list;
+        dfs(root,1,list);
         return list;
-        
     }
-    public void help(TreeNode node,List<Integer> list,int level){
-        if(node==null)return ;
-        
-        if(level==list.size()){
+    
+    //this is the dfs approch for this solution using the preorder traversal root->right->left
+//here using the level to fill the list it was the main thought and going to right was because we have to show write side view
+    public void dfs(TreeNode node,int level,List<Integer> list){
+        if(node==null){
+            return;
+        }
+        if(list.size()<level){
             list.add(node.val);
         }
-        help(node.right,list,level+1);
-        help(node.left,list,level+1);
- 
+        dfs(node.right,level+1,list);
+        dfs(node.left,level+1,list);
     }
 }
