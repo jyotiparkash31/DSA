@@ -20,9 +20,14 @@ class Solution {
         if(root==null){
             return null;
         }
-        //this sol is o(n) as we are checking each node one time and either returing the node or null
-        root.left=pruneTree(root.left);
-        root.right=pruneTree(root.right);
+        if(!isOnePresent(root.left)){
+             root.left=null;
+        }
+        if(!isOnePresent(root.right)){
+            root.right=null;
+        }
+        pruneTree(root.left);
+        pruneTree(root.right);
 
         if(root.left==null && root.right==null && root.val==0){
             return null;
