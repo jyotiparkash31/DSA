@@ -24,24 +24,30 @@
  * }
  */
 class Solution {
-    
-//     Here the slow starts from head and fast from head.next.next so that our slow pointer will stop at previous element of mid element of list.
     public TreeNode sortedListToBST(ListNode head) {
-        if(head==null)return null;
-        if(head.next==null)return new TreeNode(head.val);
+        if(head==null){
+            return null;
+        }
+        if(head.next==null){
+            return new TreeNode(head.val);
+        }
         ListNode slow=head;
-        ListNode fast=head.next.next;
+        ListNode fast=head;
+        ListNode slowPrev=null;
+        //root of the tree will be root of the tree so to find the mid
         while(fast!=null && fast.next!=null){
+            slowPrev=slow;
             slow=slow.next;
             fast=fast.next.next;
         }
-        TreeNode bst=new TreeNode(slow.next.val);
-        ListNode right=slow.next.next;
-        slow.next=null;
-        bst.left=sortedListToBST(head);
-        bst.right=sortedListToBST(right);
-        return bst;
-        
+
+        TreeNode root=new TreeNode(slow.val);
+        if(slowPrev!=null){//this will remove the link to mid
+            slowPrev.next=null;
+        }
+        root.left=sortedListToBST(head);//left tree
+        root.right=sortedListToBST(slow.next);//right tree
+        return root;
 
     }
 }
